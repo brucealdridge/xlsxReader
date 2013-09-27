@@ -30,6 +30,7 @@ class xlsxReader {
         $archive = new ZipArchive;
         if ($archive->open($this->xlsx) === TRUE) {
             $archive->extractTo($this->tmpdir);
+            $archive->close();
         } else {
             throw new Exception("Unable to open file");   
         }
@@ -191,7 +192,7 @@ class xlsxReader {
             $z->next('si');
             $result=NULL;      
         }
-        $z->close($filename);
+        $z->close($xml_file);
 
         $xml_file = $this->tmpdir.'/xl/worksheets/sheet1.xml';    
         $z = new XMLReader;
@@ -275,7 +276,7 @@ class xlsxReader {
             $result=NULL; 
         }
 
-        $z->close($filename);
+        $z->close($xml_file);
 
         //ob_end_flush(); 
 
